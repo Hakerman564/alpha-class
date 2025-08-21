@@ -11,7 +11,7 @@ interface Transaction {
 
 const PhoneDisplay: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [balance, setBalance] = useState(2547.89);
+  const [balance] = useState(2547.89);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {

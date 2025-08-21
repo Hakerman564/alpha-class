@@ -65,9 +65,7 @@ const FeaturesCarousel: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
+
 
   return (
     <section className="features-carousel">
@@ -82,7 +80,7 @@ const FeaturesCarousel: React.FC = () => {
             className="carousel-slides" 
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <div key={feature.id} className="carousel-slide">
                 <div className="feature-card">
                   <div className="feature-image-container">

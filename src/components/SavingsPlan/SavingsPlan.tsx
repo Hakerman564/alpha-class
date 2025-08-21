@@ -24,7 +24,7 @@ const SavingsPlan: React.FC = () => {
     currentAmount: '0',
     monthlySavings: '',
     category: 'general',
-    priority: 'medium' as const
+    priority: 'medium' as 'low' | 'medium' | 'high'
   });
 
   const calculateMonthsToGoal = (target: number, current: number, monthly: number): number => {
@@ -72,7 +72,7 @@ const SavingsPlan: React.FC = () => {
       currentAmount: '0',
       monthlySavings: '',
       category: 'general',
-      priority: 'medium'
+      priority: 'medium' as 'low' | 'medium' | 'high'
     });
     setShowForm(false);
   };
