@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 import './LoginForm.css';
 
 type LoginFormValues = {
@@ -15,14 +16,26 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormValues>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
-    defaultValues: { rememberMe: false }
+    defaultValues: { 
+      rememberMe: false,
+      email: 'demo@example.com',
+      password: 'password'
+    }
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   async function onSubmit(values: LoginFormValues) {
-    await new Promise((r) => setTimeout(r, 800));
-    // Placeholder: integrate with backend auth API
-    console.log('Login submit', values);
+    setLoginError('');
+    const success = await login(values.email, values.password);
+    
+    if (success) {
+      navigate('/dashboard');
+    } else {
+      setLoginError('Credenciales inválidas. Usa demo@example.com/password o admin@trackit.com/admin123');
+    }
   }
 
   return (
@@ -88,16 +101,44 @@ const LoginForm: React.FC = () => {
           <Link to="#" className="link subtle">Forgot Password?</Link>
         </div>
 
+        {loginError && (
+          <p className="form-error" role="alert">{loginError}</p>
+        )}
+
         <button type="submit" className="btn primary" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
               <span className="spinner" aria-hidden="true"></span>
-              <span>Signing in…</span>
+              <span>Iniciando sesión…</span>
             </>
           ) : (
-            'Sign In'
+            'Iniciar Sesión'
           )}
         </button>
+
+        <div className="quick-login-section">
+          <div className="quick-login-divider">
+            <span>o</span>
+          </div>
+          <div className="quick-login-buttons">
+            <button 
+              type="button" 
+              className="btn quick-login demo" 
+              onClick={() => onSubmit({ email: 'demo@example.com', password: 'password', rememberMe: false })}
+              disabled={isSubmitting}
+            >
+              🚀 Usuario Demo
+            </button>
+            <button 
+              type="button" 
+              className="btn quick-login admin" 
+              onClick={() => onSubmit({ email: 'admin@trackit.com', password: 'admin123', rememberMe: false })}
+              disabled={isSubmitting}
+            >
+              👑 Administrador Root
+            </button>
+          </div>
+        </div>
 
         <div className="form-footer">
           <span>Don't have an account?</span>

@@ -1,10 +1,11 @@
 .hero {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   width: 100%;
   padding: 4rem 2rem;
   min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-container {
@@ -43,23 +44,24 @@
 }
 
 .hero-cta {
-  background-color: #4f46e5;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 0.5rem;
+  border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
   align-self: flex-start;
-  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .hero-cta:hover {
-  background-color: #3730a3;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
 .hero-visual {
@@ -129,13 +131,13 @@
 }
 
 .visa-card {
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   padding: 1.5rem;
   border-radius: 1rem;
   color: white;
   margin: 0 auto;
   width: 200px;
-  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
 }
 
 .card-info {
@@ -175,7 +177,7 @@
 .tap-circle {
   width: 50px;
   height: 50px;
-  border: 3px solid #4f46e5;
+  border: 3px solid #10b981;
   border-radius: 50%;
   position: relative;
   animation: tapPulse 2s infinite;
@@ -189,7 +191,7 @@
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background: #4f46e5;
+  background: #10b981;
   border-radius: 50%;
 }
 

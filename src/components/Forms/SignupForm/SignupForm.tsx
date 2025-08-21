@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 import './SignupForm.css';
 
 type SignupFormValues = {
@@ -33,13 +34,21 @@ const SignupForm: React.FC = () => {
   });
 
   const [emailCheckLoading, setEmailCheckLoading] = useState(false);
+  const [signupError, setSignupError] = useState('');
   const password = watch('password');
   const strength = useMemo(() => getPasswordStrength(password || ''), [password]);
+  const { signup } = useAuth();
+  const navigate = useNavigate();
 
   async function onSubmit(values: SignupFormValues) {
-    await new Promise((r) => setTimeout(r, 900));
-    // Placeholder: integrate with backend auth API
-    console.log('Signup submit', values);
+    setSignupError('');
+    const success = await signup(values.email, values.password, values.fullName);
+    
+    if (success) {
+      navigate('/dashboard');
+    } else {
+      setSignupError('Error al crear la cuenta. Intenta de nuevo.');
+    }
   }
 
   async function checkEmailAvailability(value: string) {
@@ -144,14 +153,18 @@ const SignupForm: React.FC = () => {
         </div>
         {errors.agree && <p className="form-error" role="alert">{errors.agree.message}</p>}
 
+        {signupError && (
+          <p className="form-error" role="alert">{signupError}</p>
+        )}
+
         <button type="submit" className="btn primary" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
               <span className="spinner" aria-hidden="true"></span>
-              <span>Creating…</span>
+              <span>Creando cuenta…</span>
             </>
           ) : (
-            'Create Account'
+            'Crear Cuenta'
           )}
         </button>
 
