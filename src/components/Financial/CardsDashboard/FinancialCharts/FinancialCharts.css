@@ -1,0 +1,15 @@
+.chart-container {
+    width: 100%;
+    height: 380px;        /* clave: el gráfico ocupa espacio visible */
+    background: #fff;     /* tapa cualquier cosa del fondo */
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+  
